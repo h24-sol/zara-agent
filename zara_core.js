@@ -1,54 +1,57 @@
-// ZARA CORE LOGIC v2.0
-// Authorized Developer: Manish Haldar
+let lang = 'en';
 
-const developer = {
-    name: "Manish Haldar",
-    email: "manis.programmer@gmail.com",
-    handle: "@h24_sol"
-};
+function setLang(l) {
+    lang = l;
+    document.getElementById('en-btn').className = l === 'en' ? 'btn-active px-4 py-1 text-xs' : 'border border-[#00f2ff] px-4 py-1 text-xs';
+    document.getElementById('bn-btn').className = l === 'bn' ? 'btn-active px-4 py-1 text-xs' : 'border border-[#00f2ff] px-4 py-1 text-xs';
+}
 
-function executeLogic() {
-    const query = document.getElementById('user-query').value.toLowerCase();
-    const speech = document.getElementById('zara-speech');
-    const alpha = document.getElementById('alpha-text');
-    const delta = document.getElementById('delta-text');
+async function execute() {
+    const cmd = document.getElementById('command').value.toLowerCase();
+    const output = document.getElementById('zara-output');
+    const market = document.getElementById('market-feed');
+    const news = document.getElementById('news-feed');
 
-    if (!query) return;
+    if (!cmd) return;
 
-    // Zara's "Secret" Developer Recognition
-    if (query.includes("who are you") || query.includes("developer")) {
-        const devResponse = `I am Zara, an autonomous agent orchestrated by ${developer.name}. You can reach my architect at ${developer.email} or on X at ${developer.handle}.`;
-        updateUI("Identity Matrix", "System Origin", devResponse);
-        speak(devResponse);
+    // Check for Developer Info (Manish)
+    if (cmd.includes("developer") || cmd.includes("owner")) {
+        const devMsg = lang === 'en' ? "Accessing creator record: Manish Haldar (@h24_sol). Email: manis.programmer@gmail.com." : "ক্রিয়েটর রেকর্ড এক্সেস করছি: মনীষ হালদার (@h24_sol)। ইমেইল: manis.programmer@gmail.com।";
+        output.innerText = devMsg;
+        speak(devMsg);
         return;
     }
 
-    // Processing State
-    speech.innerText = "Analyzing logic pathways...";
-    
-    // Simulating Advanced Logic Processing
+    output.innerText = lang === 'en' ? "SYNTHESIZING GLOBAL DATA..." : "বৈশ্বিক ডাটাবেস বিশ্লেষণ করছি...";
+
     setTimeout(() => {
-        // Example: If Manish asks to build something
-        const alphaPath = "Deploying a hyper-optimized liquidity pool on Solana. Execution: Immediate. Risk: High-Alpha.";
-        const deltaPath = "Building a multi-agent governance layer for long-term scalability. Execution: Gradual. Risk: Low-Stability.";
-        const voiceScript = "Manish, I've mapped out two routes. The Alpha path offers immediate dominance, while the Delta path secures the infrastructure. Your call.";
+        const data = {
+            en: {
+                speech: "Analysis complete. Global uncertainty is at a maximum due to the Iran conflict. Capital is fleeing to Gold and Bitcoin.",
+                mkt: `BTC/USD: $92,400 | GOLD: $4,534/oz | INR/BDT: High Volatility. Market Outflow: ₹18.6L Crore wiped from Indian equities in 48h.`,
+                nws: `IRAN: Operation Epic Fury cost exceeds $16.5B. Strait of Hormuz blocked. Global shipping down 96%.`
+            },
+            bn: {
+                speech: "বিশ্লেষণ সম্পন্ন। ইরান যুদ্ধের কারণে বিশ্ববাজারে চরম অস্থিরতা। পুঁজি এখন সোনা এবং বিটকয়েনের দিকে ঝুঁকছে।",
+                mkt: `বিটকয়েন: $৯২,৪০০ | সোনা: $৪,৫৩৪/আউন্স | ভারতীয় মার্কেট থেকে ১৮.৬ লক্ষ কোটি রুপি লোপাট।`,
+                nws: `ইরান যুদ্ধ: ১২ দিনে খরচ ১৬.৫ বিলিয়ন ডলার ছাড়িয়েছে। হরমুজ প্রণালী অবরুদ্ধ; বৈশ্বিক জাহাজ চলাচল ৯৬% হ্রাস পেয়েছে।`
+            }
+        };
 
-        updateUI(alphaPath, deltaPath, voiceScript);
-        speak(voiceScript);
+        const res = data[lang];
+        market.innerHTML = `<div class='p-2 bg-blue-900/20 border-l-2 border-blue-400'>${res.mkt}</div>`;
+        news.innerHTML = `<div class='p-2 bg-purple-900/20 border-l-2 border-purple-400'>${res.nws}</div>`;
+        output.innerText = `"${res.speech}"`;
+        speak(res.speech);
     }, 1200);
-}
-
-function updateUI(a, d, s) {
-    document.getElementById('alpha-text').innerText = a;
-    document.getElementById('delta-text').innerText = d;
-    document.getElementById('zara-speech').innerText = `"${s}"`;
 }
 
 function speak(text) {
     const msg = new SpeechSynthesisUtterance(text);
-    // Voice styling for "Sexy & Smart"
-    msg.pitch = 1.1; 
-    msg.rate = 0.95; 
-    msg.volume = 1;
+    const voices = window.speechSynthesis.getVoices();
+    const female = voices.find(v => v.name.includes('Google US English') || v.name.includes('Zira') || v.name.includes('Samantha'));
+    if (female) msg.voice = female;
+    msg.pitch = 1.3;
+    msg.rate = 0.85; // Slow, seductive, yet commanding
     window.speechSynthesis.speak(msg);
 }
