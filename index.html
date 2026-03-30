@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZARA | Manish Haldar's Executive AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        body { background: #020203; color: #fafafa; font-family: 'Space Grotesk', sans-serif; }
+        .glass { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .zara-glow { box-shadow: 0 0 80px rgba(59, 130, 246, 0.05); }
+        .accent-text { color: #3b82f6; text-shadow: 0 0 10px rgba(59, 130, 246, 0.5); }
+    </style>
+</head>
+<body class="h-screen flex flex-col overflow-hidden">
+
+    <nav class="p-6 border-b border-white/5 flex justify-between items-center glass">
+        <div class="flex flex-col">
+            <span class="text-2xl font-bold tracking-tighter accent-text">ZARA v2.0</span>
+            <span class="text-[10px] uppercase tracking-[0.4em] opacity-40">Orchestration Layer</span>
+        </div>
+        <div class="text-right">
+            <p class="text-xs opacity-50 uppercase tracking-widest">Authorized Developer</p>
+            <p class="text-sm font-bold text-blue-400">Manish Haldar</p>
+        </div>
+    </nav>
+
+    <main class="flex-1 flex flex-col md:flex-row overflow-hidden">
+        <div class="w-full md:w-1/2 flex flex-col items-center justify-center p-10 zara-glow relative">
+            <div id="zara-visual" class="relative group">
+                <div class="w-72 h-72 rounded-full border-2 border-blue-500/20 flex items-center justify-center animate-[pulse_4s_infinite]">
+                    <div class="w-64 h-64 rounded-full bg-gradient-to-tr from-blue-600/30 via-transparent to-purple-600/30 flex items-center justify-center border border-white/10">
+                        <span class="text-blue-400 font-mono text-sm tracking-widest">ZARA_ACTIVE</span>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-10 text-center max-w-sm">
+                <p id="zara-speech" class="text-xl italic font-light opacity-80 leading-relaxed">"Systems initialized. Awaiting your command, Manish."</p>
+            </div>
+        </div>
+
+        <div class="w-full md:w-1/2 p-6 md:p-12 overflow-y-auto space-y-6 bg-white/[0.01]">
+            <div id="alpha-card" class="glass p-8 rounded-3xl border-l-4 border-l-blue-500 hover:bg-white/[0.04] transition-all">
+                <h4 class="text-[10px] tracking-[0.5em] text-blue-400 mb-4 font-bold">ALPHA PATH // AGGRESSIVE</h4>
+                <p id="alpha-text" class="text-lg opacity-60">Input required for strategy generation...</p>
+            </div>
+
+            <div id="delta-card" class="glass p-8 rounded-3xl border-l-4 border-l-purple-500 hover:bg-white/[0.04] transition-all">
+                <h4 class="text-[10px] tracking-[0.5em] text-purple-400 mb-4 font-bold">DELTA PATH // SUSTAINABLE</h4>
+                <p id="delta-text" class="text-lg opacity-60">Monitoring system status...</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="p-8 glass">
+        <div class="max-w-5xl mx-auto flex gap-4">
+            <input id="user-query" type="text" placeholder="Explain the next move..." 
+                   class="flex-1 bg-white/5 border border-white/10 rounded-2xl px-6 py-5 focus:outline-none focus:border-blue-500 transition-all text-lg">
+            <button onclick="executeLogic()" class="bg-blue-600 hover:bg-blue-500 text-white px-12 py-5 rounded-2xl font-bold transition-all shadow-2xl shadow-blue-500/20 active:scale-95">
+                EXECUTE 🔥
+            </button>
+        </div>
+        <div class="mt-4 text-center">
+            <a href="https://x.com/h24_sol" target="_blank" class="text-[10px] opacity-30 hover:opacity-100 transition-all tracking-widest uppercase">Verified by @h24_sol</a>
+        </div>
+    </footer>
+
+    <script src="zara_core.js"></script>
+</body>
+</html>
